@@ -1,0 +1,15 @@
+# Traefik动态配置示例
+http:
+  middlewares:
+    github-auth:
+      forwardAuth:
+        address: "http://oauth2-proxy:4180/auth"
+        trustForwardHeader: true
+  routers:
+    your-service:
+      rule: Host(`your-service.com`)
+      entryPoints:
+        - websecure
+      middlewares:
+        - github-auth
+      service: your-service
